@@ -1,8 +1,8 @@
 const INITIAL_STATE = {
-  cart: 0,
+  cart: 23,
 };
 
-function AddCartReducer(state = INITIAL_STATE, action) {
+function addCartReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
     case 'ADDCART': {
       return {
@@ -16,4 +16,4 @@ function AddCartReducer(state = INITIAL_STATE, action) {
   return state;
 }
 
-export default AddCartReducer;
+export default addCartReducer;

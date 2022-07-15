@@ -1,12 +1,13 @@
-import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { getCatImg } from '../redux/reducers/dataImgReducer';
 
 export default function Counter() {
   //   const cart = useSelector(state => state.cart);
-  const { count, cart } = useSelector(state => ({
-    ...state.CounterReducer,
-    ...state.AddCartReducer,
+  const { count, cart, imgURL } = useSelector(state => ({
+    ...state.counterReducer,
+    ...state.addCartReducer,
+    ...state.dataImgReducer,
   }));
 
   const [cartData, setCartData] = useState(0);
@@ -15,6 +16,10 @@ export default function Counter() {
   const increment = () => dispatch({ type: 'INCREMENT' });
   const decrement = () => dispatch({ type: 'DECREMENT' });
   const addToCart = () => dispatch({ type: 'ADDCART', payload: cartData });
+  const showCat = () => dispatch(getCatImg());
+  useEffect(() => {
+    dispatch(getCatImg());
+  }, []);
   return (
     <div>
       <h2>Les données : {count}</h2>
@@ -28,6 +33,12 @@ export default function Counter() {
         type="number"
       />
       <button onClick={addToCart}>Ajouter au panier</button>
+      <hr />
+      <h2>Image de chat aléatoire</h2>
+      <button onClick={showCat}>changer de chat</button>
+      <div>
+        {imgURL && <img src={imgURL} alt="cat" style={{ width: '300px' }} />}
+      </div>
     </div>
   );
 }
